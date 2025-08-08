@@ -22,10 +22,6 @@
     ["\"", "\""],
     ["'", "'"]
   ],
-  "indentationRules": {
-    "increaseIndentPattern": "^\\s*(STAGE|VM|RUN|COPY|WAIT|PRESS|TYPE)\\s",
-    "decreaseIndentPattern": "^\\s*(STAGE)\\s"
-  },
   "folding": {
     "markers": {
       "start": "^\\s*STAGE\\s+(init|os_install|os_configure|pack)",

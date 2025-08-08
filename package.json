@@ -2,7 +2,7 @@
   "name": "isotope-lang",
   "displayName": "Isotope Language Support",
   "description": "Complete language support for Isotope specifications with IntelliSense, validation, and build integration",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "publisher": "omnicloud",
   "icon": "images/isotope-icon.png",
   "engines": {
