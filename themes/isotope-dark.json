@@ -1,0 +1,112 @@
+{
+  "name": "Isotope Dark",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#1e1e1e",
+    "editor.foreground": "#d4d4d4",
+    "editorLineNumber.foreground": "#858585",
+    "editorLineNumber.activeForeground": "#c6c6c6"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "keyword.control.isotope",
+        "keyword.control.stage.isotope",
+        "keyword.control.vm.isotope",
+        "keyword.control.wait.isotope",
+        "keyword.control.press.isotope",
+        "keyword.control.type.isotope",
+        "keyword.control.run.isotope",
+        "keyword.control.copy.isotope",
+        "keyword.control.export.isotope",
+        "keyword.control.format.isotope",
+        "keyword.control.bootable.isotope",
+        "keyword.control.volume-label.isotope"
+      ],
+      "settings": {
+        "foreground": "#569cd6",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.type.stage.isotope",
+        "entity.name.type.vm-provider.isotope",
+        "entity.name.type.format.isotope"
+      ],
+      "settings": {
+        "foreground": "#4ec9b0"
+      }
+    },
+    {
+      "scope": [
+        "variable.other.isotope",
+        "variable.other.vm-property.isotope"
+      ],
+      "settings": {
+        "foreground": "#9cdcfe"
+      }
+    },
+    {
+      "scope": [
+        "string.quoted.double.isotope",
+        "string.quoted.single.isotope",
+        "string.unquoted.isotope"
+      ],
+      "settings": {
+        "foreground": "#ce9178"
+      }
+    },
+    {
+      "scope": [
+        "constant.numeric.isotope",
+        "constant.numeric.size.isotope",
+        "constant.numeric.duration.isotope"
+      ],
+      "settings": {
+        "foreground": "#b5cea8"
+      }
+    },
+    {
+      "scope": [
+        "constant.language.boolean.isotope"
+      ],
+      "settings": {
+        "foreground": "#569cd6"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.type.key.isotope"
+      ],
+      "settings": {
+        "foreground": "#dcdcaa"
+      }
+    },
+    {
+      "scope": [
+        "comment.line.number-sign.isotope"
+      ],
+      "settings": {
+        "foreground": "#6a9955",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "variable.other.template.isotope"
+      ],
+      "settings": {
+        "foreground": "#ff8c00"
+      }
+    },
+    {
+      "scope": [
+        "string.unquoted.shell-command.isotope"
+      ],
+      "settings": {
+        "foreground": "#d7ba7d"
+      }
+    }
+  ]
+}

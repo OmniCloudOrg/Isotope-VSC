@@ -1,0 +1,327 @@
+{
+  "name": "isotope-lang",
+  "displayName": "Isotope Language Support",
+  "description": "Complete language support for Isotope specifications with IntelliSense, validation, and build integration",
+  "version": "1.0.0",
+  "publisher": "omnicloud",
+  "icon": "images/isotope-icon.png",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "isotope",
+    "iso",
+    "vm",
+    "automation",
+    "dockerfile",
+    "build"
+  ],
+  "activationEvents": [
+    "onLanguage:isotope",
+    "onCommand:isotope.build",
+    "onCommand:isotope.validate",
+    "onCommand:isotope.test",
+    "workspaceContains:**/*.isotope"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "isotope",
+        "aliases": [
+          "Isotope",
+          "isotope"
+        ],
+        "extensions": [
+          ".isotope"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/isotope-file-light.svg",
+          "dark": "./images/isotope-file-dark.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "isotope",
+        "scopeName": "source.isotope",
+        "path": "./syntaxes/isotope.tmLanguage.json"
+      }
+    ],
+    "themes": [
+      {
+        "label": "Isotope Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/isotope-dark.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "isotope.build",
+        "title": "Build ISO",
+        "icon": "$(rocket)",
+        "category": "Isotope"
+      },
+      {
+        "command": "isotope.validate",
+        "title": "Validate Specification",
+        "icon": "$(check)",
+        "category": "Isotope"
+      },
+      {
+        "command": "isotope.test",
+        "title": "Test VM Boot",
+        "icon": "$(play)",
+        "category": "Isotope"
+      },
+      {
+        "command": "isotope.convert",
+        "title": "Convert JSON to Isotope",
+        "icon": "$(symbol-file)",
+        "category": "Isotope"
+      },
+      {
+        "command": "isotope.openOutput",
+        "title": "Open Output Directory",
+        "icon": "$(folder-opened)",
+        "category": "Isotope"
+      },
+      {
+        "command": "isotope.refreshSpecs",
+        "title": "Refresh",
+        "icon": "$(refresh)",
+        "category": "Isotope"
+      },
+      {
+        "command": "isotope.createSpec",
+        "title": "New Isotope Specification",
+        "icon": "$(add)",
+        "category": "Isotope"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "isotope.build",
+          "when": "resourceExtname == .isotope"
+        },
+        {
+          "command": "isotope.validate",
+          "when": "resourceExtname == .isotope"
+        },
+        {
+          "command": "isotope.test",
+          "when": "resourceExtname == .isotope"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "isotope.build",
+          "when": "resourceExtname == .isotope",
+          "group": "isotope"
+        },
+        {
+          "command": "isotope.validate",
+          "when": "resourceExtname == .isotope",
+          "group": "isotope"
+        },
+        {
+          "command": "isotope.test",
+          "when": "resourceExtname == .isotope",
+          "group": "isotope"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "isotope.build",
+          "when": "resourceExtname == .isotope",
+          "group": "isotope"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "isotope.refreshSpecs",
+          "when": "view == isotopeSpecs",
+          "group": "navigation"
+        },
+        {
+          "command": "isotope.createSpec",
+          "when": "view == isotopeSpecs",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "isotope.build",
+          "when": "view == isotopeSpecs && viewItem == isotopeSpec",
+          "group": "inline"
+        },
+        {
+          "command": "isotope.validate",
+          "when": "view == isotopeSpecs && viewItem == isotopeSpec",
+          "group": "inline"
+        },
+        {
+          "command": "isotope.test",
+          "when": "view == isotopeSpecs && viewItem == isotopeSpec",
+          "group": "inline"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "isotopeSpecs",
+          "name": "Isotope Specifications",
+          "when": "workspaceHasIsotopeFiles"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "isotope",
+          "title": "Isotope",
+          "icon": "$(vm)"
+        }
+      ]
+    },
+    "views": {
+      "isotope": [
+        {
+          "id": "isotopeSpecs",
+          "name": "Specifications",
+          "when": "workspaceHasIsotopeFiles || isotopeExtensionActive"
+        },
+        {
+          "id": "isotopeBuildHistory",
+          "name": "Build History",
+          "when": "workspaceHasIsotopeFiles || isotopeExtensionActive"
+        },
+        {
+          "id": "isotopeTemplates",
+          "name": "Templates",
+          "when": "workspaceHasIsotopeFiles || isotopeExtensionActive"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Isotope",
+      "properties": {
+        "isotope.executable.path": {
+          "type": "string",
+          "default": "isotope",
+          "description": "Path to the Isotope executable"
+        },
+        "isotope.validation.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable real-time validation of Isotope specifications"
+        },
+        "isotope.validation.onSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate specifications when saving files"
+        },
+        "isotope.autoCompletion.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable IntelliSense and auto-completion"
+        },
+        "isotope.build.outputDirectory": {
+          "type": "string",
+          "default": "./output",
+          "description": "Default output directory for built ISOs"
+        },
+        "isotope.build.showProgress": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show build progress in status bar"
+        },
+        "isotope.logging.level": {
+          "type": "string",
+          "enum": [
+            "error",
+            "warn",
+            "info",
+            "debug"
+          ],
+          "default": "info",
+          "description": "Logging level for Isotope extension"
+        }
+      }
+    },
+    "problemMatchers": [
+      {
+        "name": "isotope",
+        "owner": "isotope",
+        "fileLocation": "absolute",
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "isotope",
+        "required": [
+          "specFile"
+        ],
+        "properties": {
+          "specFile": {
+            "type": "string",
+            "description": "The Isotope specification file to build"
+          },
+          "output": {
+            "type": "string",
+            "description": "Output path for the generated ISO"
+          },
+          "verbose": {
+            "type": "boolean",
+            "description": "Enable verbose output"
+          }
+        }
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": "*.isotope",
+        "url": "./schemas/isotope-schema.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^4.9.0"
+  },
+  "dependencies": {
+    "yaml": "^2.3.4",
+    "glob": "^8.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OmniCloudOrg/vscode-isotope.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OmniCloudOrg/vscode-isotope/issues"
+  },
+  "homepage": "https://github.com/OmniCloudOrg/vscode-isotope#readme",
+  "license": "MIT"
+}

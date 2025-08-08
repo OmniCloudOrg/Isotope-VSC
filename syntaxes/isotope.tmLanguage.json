@@ -1,0 +1,440 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Isotope",
+  "scopeName": "source.isotope",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#from"
+    },
+    {
+      "include": "#checksum"
+    },
+    {
+      "include": "#label"
+    },
+    {
+      "include": "#stage"
+    },
+    {
+      "include": "#vm-config"
+    },
+    {
+      "include": "#wait"
+    },
+    {
+      "include": "#press"
+    },
+    {
+      "include": "#type"
+    },
+    {
+      "include": "#run"
+    },
+    {
+      "include": "#copy"
+    },
+    {
+      "include": "#export"
+    },
+    {
+      "include": "#format"
+    },
+    {
+      "include": "#bootable"
+    },
+    {
+      "include": "#volume-label"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.isotope",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "from": {
+      "patterns": [
+        {
+          "name": "keyword.control.from.isotope",
+          "match": "^\\s*(FROM)\\s+",
+          "captures": {
+            "1": {
+              "name": "keyword.control.isotope"
+            }
+          }
+        },
+        {
+          "name": "meta.from.isotope",
+          "begin": "^\\s*(FROM)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "string.unquoted.isotope",
+              "match": "[^\\s#]+"
+            }
+          ]
+        }
+      ]
+    },
+    "checksum": {
+      "patterns": [
+        {
+          "name": "meta.checksum.isotope",
+          "begin": "^\\s*(CHECKSUM)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "entity.name.type.isotope",
+              "match": "\\b(sha256|sha512|md5)\\b"
+            },
+            {
+              "name": "string.unquoted.isotope",
+              "match": ":[a-fA-F0-9]+"
+            }
+          ]
+        }
+      ]
+    },
+    "label": {
+      "patterns": [
+        {
+          "name": "meta.label.isotope",
+          "begin": "^\\s*(LABEL)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "variable.other.isotope",
+              "match": "\\b\\w+\\b(?==)"
+            },
+            {
+              "name": "keyword.operator.assignment.isotope",
+              "match": "="
+            },
+            {
+              "include": "#strings"
+            }
+          ]
+        }
+      ]
+    },
+    "stage": {
+      "patterns": [
+        {
+          "name": "meta.stage.isotope",
+          "begin": "^\\s*(STAGE)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.stage.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "entity.name.type.stage.isotope",
+              "match": "\\b(init|os_install|os_configure|pack)\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "vm-config": {
+      "patterns": [
+        {
+          "name": "meta.vm-config.isotope",
+          "begin": "^\\s*(VM)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.vm.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "variable.other.vm-property.isotope",
+              "match": "\\b(provider|memory|cpus|disk|timeout|boot-wait)\\b(?==)"
+            },
+            {
+              "name": "keyword.operator.assignment.isotope",
+              "match": "="
+            },
+            {
+              "name": "entity.name.type.vm-provider.isotope",
+              "match": "\\b(qemu|virtualbox|vmware|hyperv)\\b"
+            },
+            {
+              "include": "#numbers"
+            },
+            {
+              "include": "#strings"
+            }
+          ]
+        }
+      ]
+    },
+    "wait": {
+      "patterns": [
+        {
+          "name": "meta.wait.isotope",
+          "begin": "^\\s*(WAIT)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.wait.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.numeric.duration.isotope",
+              "match": "\\d+[smhd]\\b"
+            },
+            {
+              "name": "keyword.control.for.isotope",
+              "match": "\\bFOR\\b"
+            },
+            {
+              "include": "#strings"
+            }
+          ]
+        }
+      ]
+    },
+    "press": {
+      "patterns": [
+        {
+          "name": "meta.press.isotope",
+          "begin": "^\\s*(PRESS)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.press.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "entity.name.type.key.isotope",
+              "match": "\\b(enter|tab|space|esc|escape|up|down|left|right|f1|f2|f3|f4|f5|f6|f7|f8|f9|f10|f11|f12|ctrl|alt|shift|win|cmd)\\b"
+            },
+            {
+              "name": "keyword.control.repeat.isotope",
+              "match": "\\brepeat\\b"
+            },
+            {
+              "include": "#numbers"
+            }
+          ]
+        }
+      ]
+    },
+    "type": {
+      "patterns": [
+        {
+          "name": "meta.type.isotope",
+          "begin": "^\\s*(TYPE)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.type.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#strings"
+            }
+          ]
+        }
+      ]
+    },
+    "run": {
+      "patterns": [
+        {
+          "name": "meta.run.isotope",
+          "begin": "^\\s*(RUN)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.run.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "string.unquoted.shell-command.isotope",
+              "match": ".*"
+            }
+          ]
+        }
+      ]
+    },
+    "copy": {
+      "patterns": [
+        {
+          "name": "meta.copy.isotope",
+          "begin": "^\\s*(COPY)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.copy.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "string.unquoted.path.isotope",
+              "match": "[^\\s#]+"
+            }
+          ]
+        }
+      ]
+    },
+    "export": {
+      "patterns": [
+        {
+          "name": "meta.export.isotope",
+          "begin": "^\\s*(EXPORT)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.export.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "string.unquoted.path.isotope",
+              "match": "[^\\s#]+"
+            }
+          ]
+        }
+      ]
+    },
+    "format": {
+      "patterns": [
+        {
+          "name": "meta.format.isotope",
+          "begin": "^\\s*(FORMAT)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.format.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "entity.name.type.format.isotope",
+              "match": "\\b(iso9660|udf)\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "bootable": {
+      "patterns": [
+        {
+          "name": "meta.bootable.isotope",
+          "begin": "^\\s*(BOOTABLE)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.bootable.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.language.boolean.isotope",
+              "match": "\\b(true|false)\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "volume-label": {
+      "patterns": [
+        {
+          "name": "meta.volume-label.isotope",
+          "begin": "^\\s*(VOLUME_LABEL)\\s+",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.volume-label.isotope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#strings"
+            }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.isotope",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.isotope",
+              "match": "\\\\."
+            },
+            {
+              "name": "variable.other.template.isotope",
+              "match": "\\$\\{[^}]+\\}"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.isotope",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.isotope",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.size.isotope",
+          "match": "\\d+[KMGT]?[Bb]?\\b"
+        },
+        {
+          "name": "constant.numeric.duration.isotope",
+          "match": "\\d+[smhd]\\b"
+        },
+        {
+          "name": "constant.numeric.isotope",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    }
+  }
+}

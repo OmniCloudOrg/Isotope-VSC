@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://omnicloud.com/schemas/isotope.json",
+  "title": "Isotope Specification Schema",
+  "description": "Schema for Isotope build specifications",
+  "type": "object",
+  "definitions": {
+    "stage": {
+      "type": "string",
+      "enum": ["init", "os_install", "os_configure", "pack"]
+    },
+    "vmProvider": {
+      "type": "string",
+      "enum": ["qemu", "virtualbox", "vmware", "hyperv"]
+    },
+    "checksumAlgorithm": {
+      "type": "string",
+      "enum": ["sha256", "sha512", "md5"]
+    },
+    "isoFormat": {
+      "type": "string",
+      "enum": ["iso9660", "udf"]
+    },
+    "duration": {
+      "type": "string",
+      "pattern": "^\\d+[smhd]$"
+    },
+    "size": {
+      "type": "string",
+      "pattern": "^\\d+[KMGT]?[Bb]?$"
+    },
+    "keyName": {
+      "type": "string",
+      "enum": [
+        "enter", "tab", "space", "esc", "escape",
+        "up", "down", "left", "right",
+        "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12",
+        "ctrl", "alt", "shift", "win", "cmd"
+      ]
+    }
+  },
+  "properties": {
+    "from": {
+      "type": "string",
+      "description": "Source ISO file path"
+    },
+    "checksum": {
+      "type": "object",
+      "properties": {
+        "algorithm": { "$ref": "#/definitions/checksumAlgorithm" },
+        "value": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]+$"
+        }
+      },
+      "required": ["algorithm", "value"]
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "$ref": "#/definitions/stage" },
+          "instructions": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "vm" },
+                    "key": {
+                      "enum": ["provider", "memory", "cpus", "disk", "timeout", "boot-wait"]
+                    },
+                    "value": { "type": "string" }
+                  },
+                  "required": ["type", "key", "value"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "wait" },
+                    "duration": { "$ref": "#/definitions/duration" },
+                    "condition": { "type": "string" }
+                  },
+                  "required": ["type", "duration"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "press" },
+                    "key": { "$ref": "#/definitions/keyName" },
+                    "repeat": { "type": "integer", "minimum": 1 }
+                  },
+                  "required": ["type", "key"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "type" },
+                    "text": { "type": "string" }
+                  },
+                  "required": ["type", "text"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "run" },
+                    "command": { "type": "string" }
+                  },
+                  "required": ["type", "command"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "copy" },
+                    "from": { "type": "string" },
+                    "to": { "type": "string" }
+                  },
+                  "required": ["type", "from", "to"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "export" },
+                    "path": { "type": "string" }
+                  },
+                  "required": ["type", "path"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "format" },
+                    "format": { "$ref": "#/definitions/isoFormat" }
+                  },
+                  "required": ["type", "format"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "bootable" },
+                    "enabled": { "type": "boolean" }
+                  },
+                  "required": ["type", "enabled"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "volumeLabel" },
+                    "label": { "type": "string", "maxLength": 32 }
+                  },
+                  "required": ["type", "label"]
+                }
+              ]
+            }
+          }
+        },
+        "required": ["name", "instructions"]
+      }
+    }
+  },
+  "required": ["from", "stages"]
+}
