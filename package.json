@@ -188,7 +188,7 @@
         {
           "id": "isotope",
           "title": "Isotope",
-          "icon": "$(vm)"
+          "icon": "./images/isotope-file-icon.png"
         }
       ]
     },
